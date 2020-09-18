@@ -4,11 +4,12 @@ let counter = +document.getElementById("clicker__counter").textContent;
 
 let arr = [];
 
-let finish;
+let finish = 0;
+
 
 cookie.onclick = () => {
 
-    let start = new Date();
+    let a = new Date().getTime() / 1000;
 
     counter += 1;
     document.getElementById("clicker__counter").textContent = counter;
@@ -21,9 +22,13 @@ cookie.onclick = () => {
         cookie.heigth = 200;
     }
 
-        let interval = start.getSeconds() - start.getSeconds()
+    
+    if (+document.getElementById("clicker__counter").textContent > 1) {
+        let interval = a - finish;
         let speed = 1 / interval;
         arr.push(speed);
-        document.getElementById("taps__speed").textContent = speed / arr.length;
-        finish = start;
+        document.getElementById("taps__speed").textContent = (arr.reduce((a,b) => {return a + b}) / arr.length);
+    }
+        finish = a;
+
 }
