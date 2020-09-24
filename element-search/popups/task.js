@@ -1,29 +1,20 @@
-document.getElementsByClassName("modal")[0].className = "modal modal_active";
+document.querySelector(".modal").classList.add("modal_active");
 
-let closeRed = document.getElementsByClassName("modal__close modal__close_times")[0];
+let activeTable = document.querySelector(".modal_active");
 
-let closeGreen = document.getElementsByClassName("modal__close modal__close_times")[1];
-
-// let close = document.querySelectorAll(".modal__close_times")[0] || document.querySelectorAll(".modal__close_times")[1]
+Array.from(document.querySelectorAll(".modal__close_times")).forEach(item => item.onclick = function() {
+    if (item.parentElement.parentElement.classList.contains("modal_active")) {
+        console.log(this);
+        activeTable.classList.remove("modal_active");
+    }
+})
 
 let successElement = document.getElementsByClassName("show-success")[0];
 
-// close.onclick = () => {
-//     Array.from(document.getElementsByClassName("modal")).forEach(item => {
-//         item.className = "modal";
-//     })
-// }
-
-closeRed.onclick = () => {
-    document.getElementsByClassName("modal")[0].className = "modal";
-}
-
-closeGreen.onclick = () => {
-    document.getElementsByClassName("modal")[0].className = "modal";
-    document.getElementsByClassName("modal")[1].className = "modal";
-}
-
 successElement.onclick = () => {
     document.getElementById("modal_success").className = "modal modal_active";
+    document.getElementById("modal_main").className = "modal";
+    activeTable = document.querySelector(".modal_active");
+    closeElement = Array.from(document.querySelectorAll(".modal__close_times")).forEach(item => item.parentElement.parentElement.classList.contains("modal_active"));
 }
 
