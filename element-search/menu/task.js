@@ -2,7 +2,7 @@ let menuMain = document.getElementsByClassName("menu_main")
 
 let menuLink = document.getElementsByClassName("menu__link")
 
-for (let i = 0, k = 0; i < menuLink.length, k < menuMain.length; i++) {
+for (let i = 0, k = 0; i < menuLink.length / menuMain.length, k < menuMain.length; i++) {
 
     menuMain[k].getElementsByClassName("menu__link")[i].onclick = function() {
     
