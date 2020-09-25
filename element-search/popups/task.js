@@ -3,10 +3,7 @@ document.querySelector(".modal").classList.add("modal_active");
 let activeTable = document.querySelector(".modal_active");
 
 Array.from(document.querySelectorAll(".modal__close_times")).forEach(item => item.onclick = function() {
-    if (item.parentElement.parentElement.classList.contains("modal_active")) {
-        console.log(this);
-        activeTable.classList.remove("modal_active");
-    }
+    this.closest(".modal_active").classList.remove("modal_active");
 })
 
 let successElement = document.getElementsByClassName("show-success")[0];
