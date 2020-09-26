@@ -2,7 +2,8 @@ let menuMain = document.getElementsByClassName("menu_main")
 
 let menuLink = document.getElementsByClassName("menu__link")
 
-for (let i = 0, k = 0; i < menuLink.length / menuMain.length, k < menuMain.length; i++) {
+for (let k = 0; k < menuMain.length; k++) {
+for (let i = 0; i < menuLink.length / menuMain.length; i++) {
 
     menuMain[k].getElementsByClassName("menu__link")[i].onclick = function() {
     
@@ -15,10 +16,8 @@ for (let i = 0, k = 0; i < menuLink.length / menuMain.length, k < menuMain.lengt
         this.nextElementSibling.classList.toggle("menu_active")
     }
 
-    if (i == menuLink.length - 1) {
-        k += 1
-    }
-
     return false
+
+}
 }
 }
