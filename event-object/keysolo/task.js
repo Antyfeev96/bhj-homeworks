@@ -4,11 +4,13 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
-
+   
     this.reset();
 
     this.registerEvents();
   }
+
+  
 
   reset() {
     this.setNewWord();
@@ -17,6 +19,15 @@ class Game {
   }
 
   registerEvents() {
+    document.addEventListener('keydown', (event) => {
+      if (this.currentSymbol.textContent.toLowerCase() === event.key.toLowerCase()) {
+        this.success()
+      } else {
+        this.fail()
+      }
+      return false;
+    })
+    
     /*
       TODO:
       Написать обработчик события, который откликается
