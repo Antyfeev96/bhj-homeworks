@@ -4,13 +4,27 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
-   
+    this.timer = container.querySelector('.timer');
+
     this.reset();
+
+    this.setTime();
 
     this.registerEvents();
   }
 
-  
+
+  setTime() {
+    this.timer.textContent = this.wordElement.childElementCount;
+    setInterval(() => {
+      this.timer.textContent -= 1
+      if (+this.container.querySelector(".timer").textContent === 0) {
+        this.fail();
+        this.timer.textContent = this.wordElement.childElementCount;
+      } 
+    },1000)
+  }
+
 
   reset() {
     this.setNewWord();
@@ -27,14 +41,6 @@ class Game {
       }
       return false;
     })
-    
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
   }
 
   success() {
@@ -63,6 +69,7 @@ class Game {
     const word = this.getWord();
 
     this.renderWord(word);
+    this.timer.textContent = this.wordElement.childElementCount;
   }
 
   getWord() {
