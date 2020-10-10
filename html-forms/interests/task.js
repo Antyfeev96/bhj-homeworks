@@ -1,36 +1,66 @@
-let main = document.querySelector(".interests_main");
+let radios = document.querySelectorAll('input');
 
-let interests = main.querySelectorAll(".interests_active");
+// Неудачный вариант с forEach, я посмотрел по дебаггеру, что у меня код срабатывает не по нажатию
+// а по загрузке страницы, то есть item.checked всегда будет становиться true, до меня не дошло, как
+// только с помощью forEach и одного цикла сделать это :( 
+// Если я пытаюсь делать без большого количества циклов, например, как ниже, то
 
-let big = document.querySelector("ul"); // целый список
+// for (let item of radios) {
+//   item.addEventListener('click', () => {
+//     radios.forEach(a => {
+//       if (item.checked) {
+//         item.checked = false
+//       }
+//     })
+//     item.checked = true;
+//   })
+// }
 
-let medium = big.children; // список всех средних
+for (let item of radios) {
+  item.onclick = () => {
 
-medium[0].querySelectorAll("input")[0]; // каждый главный radio в каждом списке
-
-let radios = document.querySelectorAll("input");
-
-interests[0].querySelectorAll("input")[0]; // каждая внутренняя клетка
-
-medium[0]; // каждый большой список
-
-for (a = 0; a < radios.length; a++) {
-  radios[a].onclick = () => {
-    for (let i = 0; i < big.childElementCount; i++) {
-      if (medium[i].querySelector("input").checked) {
-        for (let k = 0; k < medium.length; k++) {
-          interests[i].querySelectorAll("input")[k].checked = true;
-        }
-      } else {
-        for (let k = 0; k < medium.length; k++) {
-            interests[i].querySelectorAll("input")[k].checked = false;
-          }
+    if (item.closest('ul').closest('li') === null && item.checked) {
+      for (let a of item.closest('li').querySelector('.interests_active').querySelectorAll('input')) {
+        a.checked = true
+      }
+    } else if (item.closest('ul').closest('li') === null && !item.checked) {
+      for (let a of item.closest('li').querySelector('.interests_active').querySelectorAll('input')) {
+        a.checked = false
       }
     }
-  };
-}
 
-// Формально это задание работает в базовом варианте, но я его очень сложно реализовал
-// обычно, когда что-то получается очень сложно, преподаватели говорят, что что-то не так
-// как облегчить мой вариант? Тут проблема в том, что все названия классов каждой строки
-// одинаковый, были бы у них разные классы было бы гораздо легче...
+    if (item.closest('li').nextElementSibling === null) {
+      if (!item.closest('li').previousElementSibling.querySelector('input').checked) {
+        item.closest('ul').closest('li').querySelector('input').checked = false
+        item.closest('ul').closest('li').querySelector('input').indeterminate = true;
+      } else {
+        item.closest('ul').closest('li').querySelector('input').indeterminate = false
+        item.closest('ul').closest('li').querySelector('input').checked = true
+      }
+
+    } else if (item.closest('li').previousElementSibling === null) {
+        if (!item.closest('li').nextElementSibling.querySelector('input').checked) {
+          item.closest('ul').closest('li').querySelector('input').checked = false
+          item.closest('ul').closest('li').querySelector('input').indeterminate = true;
+        } else {
+          item.closest('ul').closest('li').querySelector('input').indeterminate = false
+          item.closest('ul').closest('li').querySelector('input').checked = true
+        }
+    }
+
+    for (let k of item.closest('.interests_active').querySelectorAll('input')) {
+      if (k.checked === false) {
+        item.closest('ul').closest('li').querySelector('input').checked = false
+        item.closest('ul').closest('li').querySelector('input').indeterminate = true;
+      }
+    }
+
+    let arr = Array.from(item.closest('ul').querySelectorAll('input'))
+
+    if (arr.every(a => !a.checked) === true) {
+      item.closest('ul').closest('li').querySelector('input').indeterminate = false;
+      item.closest('ul').closest('li').querySelector('input').checked = false
+    }
+
+  }
+}

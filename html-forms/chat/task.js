@@ -8,7 +8,7 @@ let messages = document.getElementById("chat-widget__messages");
 
 let container = document.getElementsByClassName("chat-widget__messages-container")
 
-let time = new Date();
+let widgetArea = document.querySelector('.chat-widget__area')
 
 
 const getAnswer = () => {
@@ -34,7 +34,8 @@ rightWidget.addEventListener("click", () => {
   widget.classList.toggle("chat-widget_active");
 });
 
-document.addEventListener("keydown", (event) => {
+widgetArea.addEventListener("keydown", (event) => {
+  let time = new Date();
   if (event.key === "Enter" && input.value !== '') {
     messages.innerHTML += `Сообщение от клиента
         <div class="message message_client">
@@ -48,7 +49,8 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-document.onchange = () => {
+widgetArea.onchange = () => {
+  let time = new Date();
     messages.innerHTML += `Сообщение от робота
         <div class="message">
     <div class="message__time">${
@@ -59,5 +61,3 @@ document.onchange = () => {
     </div>
   </div>`;
 }
-
-//События с отправкой сообщения и onchange реагируют только на document, я пробовал ставить onchange на messages и container, но это не помогло, так должно быть?

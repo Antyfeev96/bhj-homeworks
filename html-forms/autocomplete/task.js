@@ -72,7 +72,7 @@ class Autocomplete {
     let arr = [];
 
     for (let item of this.input.options) {
-      if (item.textContent.toLowerCase().includes(text)) {
+      if (item.textContent.toLowerCase().includes(text.toLowerCase())) {
         arr.push({ text: item.textContent, value: item.value });
       }
     }
