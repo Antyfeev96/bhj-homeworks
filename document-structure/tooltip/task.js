@@ -8,13 +8,12 @@ for (let item of links) {
         } else {
             item.insertAdjacentHTML(
               "afterend",
-              `<div class="tooltip">Проверка!</div>`
+              `<div class="tooltip"">Проверка!</div>`
             );
             let tooltip = document.querySelector('.tooltip')
             tooltip.textContent = item.title;
+            tooltip.setAttribute('style', `left: ${item.getBoundingClientRect().left}px; top: ${item.getBoundingClientRect().top} - 100px`)
             tooltip.classList.add('tooltip_active')
-            tooltip.style.left = item.getBoundingClientRect().left
-            tooltip.style.top = item.getBoundingClientRect().top
         }
     })
 

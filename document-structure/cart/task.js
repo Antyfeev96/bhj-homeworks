@@ -28,15 +28,24 @@ for (let item of products) {
 for (let item of addProduct) {
 
     item.addEventListener('click', () => {
-
-        document.querySelector('.cart__products').insertAdjacentHTML('afterbegin', `<div class="cart__product" data-id="${item.closest('.product').getAttribute('data-id')}">
+        if (Array.from(document.querySelector('.cart__products').children).find(elem => 
+            elem.getAttribute('data-id') === item.closest('.product').getAttribute('data-id')
+        ) === undefined) {
+            document.querySelector('.cart__products').insertAdjacentHTML('afterbegin', `<div class="cart__product" data-id="${item.closest('.product').getAttribute('data-id')}">
         <img class="cart__product-image" src="${item.closest('.product').querySelector('img').getAttribute('src')}">
         <div class="cart__product-count">${item.previousElementSibling.querySelector('.product__quantity-value').textContent}</div>
     </div>`)
+        } else {
+            Array.from(document.querySelector('.cart__products').children).forEach(elem => {
+                if (elem.getAttribute('data-id') === item.closest('.product').getAttribute('data-id')) {
+                    let currentValue = +elem.querySelector('.cart__product-count').textContent
+                    elem.querySelector('.cart__product-count').textContent = currentValue + +item.parentElement.querySelector('.product__quantity-value').textContent
+                }
+            }
+        
+        )}
+        item.parentElement.querySelector('.product__quantity-value').textContent = 1;
         })
-
 }
 
-// Чтобы такой же товар не добавлялся каждый раз, нужно проверить, если ли в корзине элемент с аттрибутом data-id равным добавляемому элементу
-// Если data-id совпал, то нужно приплюсовать существующему элементу количество из item.querySelector('.product__quantity-value').textContent
-// Только вот чтобы пройтись по cart, нужно создать цикл и получается, что цикл будет находится внутри условия, а это вроде как невозможно
+// вставить onclick внуть Array.from
