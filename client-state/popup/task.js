@@ -3,14 +3,14 @@ let popup = document.querySelector('.modal')
 let closeButton = popup.querySelector('.modal__close')
 
 window.addEventListener('load', () => {
-    if (localStorage.popup === 'false') {
+    if (document.cookie === 'status=false') {
         return false
-    } else if (localStorage.popup === 'true' || !localStorage.popup) {
+    } else if (document.cookie === 'status=true' || !document.cookie) {
         popup.classList.add('modal_active')
     }
 })
 
 closeButton.addEventListener('click', () => {
     popup.classList.remove('modal_active');
-    localStorage.popup = 'false'
+    document.cookie = 'status=false'
 })
