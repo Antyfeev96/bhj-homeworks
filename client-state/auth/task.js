@@ -20,7 +20,7 @@ button.addEventListener('click', (e) => {
         if (xhr.status === 200 && xhr.readyState === 4) {
             if (JSON.parse(xhr.responseText).success) {
                 localStorage.id = JSON.parse(xhr.responseText).user_id;
-                document.getElementById('user_id').textContent = localStorage.getItem('id');
+                document.getElementById('user_id').textContent = localStorage.id;
                 signForm.classList.remove('signin_active');
                 document.getElementById('welcome').classList.add('welcome_active');
             } else {

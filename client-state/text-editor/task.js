@@ -10,6 +10,6 @@ window.addEventListener('load', () => {
 let clearButton = document.querySelector('.clear-button');
 
 clearButton.addEventListener('click', () => {
-    localStorage.clear();
+    localStorage.removeItem('text');
     document.getElementById('editor').value = ''
 })
